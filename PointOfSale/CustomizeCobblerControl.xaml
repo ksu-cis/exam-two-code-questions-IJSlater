@@ -7,6 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock>Customize Cobbler</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <ComboBox Height="53" Width="328" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontSize="30" HorizontalAlignment="Left"  ItemsSource="{Binding Path=FruitValues}" SelectedValue="{Binding Path=Fruit,Mode=TwoWay}"/>
+        <CheckBox Grid.Column="1" FontSize="30" HorizontalAlignment="Right" VerticalAlignment="Center" Height="100" Width="227" Content="With IceCream" IsChecked="{Binding Path=WithIceCream, Mode=TwoWay}"/>
     </Grid>
 </UserControl>

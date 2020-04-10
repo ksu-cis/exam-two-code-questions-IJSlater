@@ -1,10 +1,11 @@
 using System;
 using ExamTwoCodeQuestions.Data;
 using Xunit;
+using System.ComponentModel;
 
 namespace ExamTwoCodeQuestions.DataTests
 {
-    public class CobblerUnitTests
+    public class CobblerUnitTests   
     {
         [Theory]
         [InlineData(FruitFilling.Cherry)]
@@ -16,6 +17,35 @@ namespace ExamTwoCodeQuestions.DataTests
             cobbler.Fruit = fruit;
             Assert.Equal(fruit, cobbler.Fruit);
         }
+
+
+        [Fact]
+        public void CobblerlementsINotifyPropertyChanged()
+        {
+            var cobbler = new Cobbler();
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(cobbler);
+        }
+
+        [Fact]
+        public void FruitInvokedPropertyChanged()
+        {
+            var cobler = new Cobbler();
+            Assert.PropertyChanged(cobler, "Fruit", () => {
+                cobler.Fruit = FruitFilling.Cherry;
+            });
+        }
+
+
+
+        [Fact]
+        public void WithIceCreamInvokedPropertyChanged()
+        {
+            var cobler = new Cobbler();
+            Assert.PropertyChanged(cobler, "WithIceCream", () => {
+                cobler.WithIceCream = false;
+            });
+        }
+
 
         [Fact]
         public void ShouldBeServedWithIceCreamByDefault()

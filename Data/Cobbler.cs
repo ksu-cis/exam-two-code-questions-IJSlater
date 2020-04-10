@@ -1,19 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 
 namespace ExamTwoCodeQuestions.Data
 {
-    public class Cobbler : IOrderItem
+    public class Cobbler : IOrderItem, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+         public virtual IEnumerable<FruitFilling> FruitValues => Enum.GetValues(typeof(FruitFilling)).Cast<FruitFilling>();
+
         /// <summary>
         /// The fruit used in the cobbler
         /// </summary>
-        public FruitFilling Fruit { get; set; }
+        private FruitFilling fruit;
+        public FruitFilling Fruit 
+        { get => fruit;
+            set 
+            {
+                fruit = value;
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Fruit"));
+            }
+       }
 
         /// <summary>
         /// If the cobbler is served with ice cream
         /// </summary>
-        public bool WithIceCream { get; set; } = true;
+        private bool withicecream = true;
+        public bool WithIceCream
+        {
+            get => withicecream;
+            set
+            {
+                withicecream = value;
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs("WithIceCream"));
+            }
+        }
 
         /// <summary>
         /// Gets the price of the Cobbler
@@ -38,5 +61,6 @@ namespace ExamTwoCodeQuestions.Data
                 else { return new List<string>() { "Hold Ice Cream" }; }
             }
         }
+
     }
 }
